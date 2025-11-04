@@ -27,21 +27,21 @@
 
 **Purpose**: Project initialization and basic structure following plan.md
 
-- [ ] T001 Create project root structure with frontend/, backend/, and shared/ directories
-- [ ] T002 [P] Initialize backend NestJS project with TypeScript strict mode in backend/package.json
-- [ ] T003 [P] Initialize frontend Vite + React project with TypeScript strict mode in frontend/package.json
-- [ ] T004 [P] Configure ESLint and Prettier for backend in backend/.eslintrc.json
-- [ ] T005 [P] Configure ESLint and Prettier for frontend in frontend/.eslintrc.json
-- [ ] T006 [P] Setup TailwindCSS configuration in frontend/tailwind.config.js
-- [ ] T007 [P] Create shared TypeScript types directory in shared/types/
-- [ ] T008 Create Docker Compose configuration in docker-compose.yml for PostgreSQL with pgvector
-- [ ] T009 Create backend environment variables template in backend/.env.example
-- [ ] T010 [P] Create frontend environment variables template in frontend/.env.example
-- [ ] T011 [P] Configure absolute imports for backend in backend/tsconfig.json
-- [ ] T012 [P] Configure absolute imports for frontend in frontend/tsconfig.json
-- [ ] T013 Setup Prisma ORM in backend/prisma/schema.prisma with PostgreSQL provider
-- [ ] T014 Enable pgvector extension in Prisma schema
-- [ ] T015 Create uploads directory structure in backend/uploads/ (gitignored)
+- [X] T001 Create project root structure with frontend/, backend/, and shared/ directories
+- [X] T002 [P] Initialize backend NestJS project with TypeScript strict mode in backend/package.json
+- [X] T003 [P] Initialize frontend Vite + React project with TypeScript strict mode in frontend/package.json
+- [X] T004 [P] Configure ESLint and Prettier for backend in backend/.eslintrc.json
+- [X] T005 [P] Configure ESLint and Prettier for frontend in frontend/.eslintrc.json
+- [X] T006 [P] Setup TailwindCSS configuration in frontend/tailwind.config.js
+- [X] T007 [P] Create shared TypeScript types directory in shared/types/
+- [X] T008 Create Docker Compose configuration in docker-compose.yml for PostgreSQL with pgvector
+- [X] T009 Create backend environment variables template in backend/.env.example
+- [X] T010 [P] Create frontend environment variables template in frontend/.env.example
+- [X] T011 [P] Configure absolute imports for backend in backend/tsconfig.json
+- [X] T012 [P] Configure absolute imports for frontend in frontend/tsconfig.json
+- [X] T013 Setup Prisma ORM in backend/prisma/schema.prisma with PostgreSQL provider
+- [X] T014 Enable pgvector extension in Prisma schema
+- [X] T015 Create uploads directory structure in backend/uploads/ (gitignored)
 
 ---
 

@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg15
+    container_name: licitai-postgres
+    environment:
+      POSTGRES_USER: licitai
+      POSTGRES_PASSWORD: licitai_dev_password
+      POSTGRES_DB: licitai
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U licitai']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - licitai-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: licitai-backend
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://licitai:licitai_dev_password@postgres:5432/licitai
+      JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_change_in_production}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev_jwt_refresh_secret_change_in_production}
+      CLAUDE_API_KEY: ${CLAUDE_API_KEY}
+      PORT: 3001
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - backend_uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npm run dev
+    networks:
+      - licitai-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: licitai-frontend
+    environment:
+      VITE_API_URL: http://localhost:3001/api/v1
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    networks:
+      - licitai-network
+
+volumes:
+  postgres_data:
+    driver: local
+  backend_uploads:
+    driver: local
+
+networks:
+  licitai-network:
+    driver: bridge

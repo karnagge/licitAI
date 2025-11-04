@@ -1,0 +1,63 @@
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Documentation (not needed in image)
+*.md
+!README.md
+
+# Tests (not needed in production image)
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+test/
+tests/
+e2e/
+
+# Configuration files
+.eslintrc*
+.prettierrc*
+tsconfig.json
+jest.config.js
+vitest.config.ts
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
