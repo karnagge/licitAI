@@ -53,14 +53,14 @@
 
 ### Database & Multitenant Infrastructure
 
-- [ ] T016 [SEC] Define Organization entity in backend/prisma/schema.prisma with all fields from data-model.md
-- [ ] T017 [SEC] Define User entity in backend/prisma/schema.prisma with tenant_id and role enum
-- [ ] T018 [P] [SEC] Define RefreshToken entity in backend/prisma/schema.prisma
-- [ ] T019 [SEC] Create PostgreSQL migration for organizations, users, refresh_tokens tables
-- [ ] T020 [SEC] Enable Row-Level Security policies for organizations table in migration
-- [ ] T021 [SEC] Enable Row-Level Security policies for users table in migration
-- [ ] T022 [PF] Create indexes on tenant_id, email, status for users table in migration
-- [ ] T023 [PF] Create composite index on (tenant_id, role) for users table in migration
+- [X] T016 [SEC] Define Organization entity in backend/prisma/schema.prisma with all fields from data-model.md
+- [X] T017 [SEC] Define User entity in backend/prisma/schema.prisma with tenant_id and role enum
+- [X] T018 [P] [SEC] Define RefreshToken entity in backend/prisma/schema.prisma
+- [X] T019 [SEC] Create PostgreSQL migration for organizations, users, refresh_tokens tables
+- [X] T020 [SEC] Enable Row-Level Security policies for organizations table in migration
+- [X] T021 [SEC] Enable Row-Level Security policies for users table in migration
+- [X] T022 [PF] Create indexes on tenant_id, email, status for users table in migration
+- [X] T023 [PF] Create composite index on (tenant_id, role) for users table in migration
 
 ### Authentication & Authorization
 
