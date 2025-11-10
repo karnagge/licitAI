@@ -6,6 +6,7 @@ import { ValidatorService } from './validator.service';
 import { WriterService } from './writer.service';
 import { ReviewerService } from './reviewer.service';
 import { OrchestrationService } from './orchestration.service';
+import { EmbeddingsService } from './embeddings.service';
 
 /**
  * AI Agents Module
@@ -16,6 +17,7 @@ import { OrchestrationService } from './orchestration.service';
  * - Validator: Checks legal compliance
  * - Reviewer: Final quality review
  * - Orchestration: Coordinates all agents
+ * - Embeddings: Vector embeddings for semantic search
  *
  * All agents use Anthropic's Claude for natural language understanding
  * and generation.
@@ -28,6 +30,7 @@ import { OrchestrationService } from './orchestration.service';
     WriterService,
     ReviewerService,
     OrchestrationService,
+    EmbeddingsService,
   ],
   exports: [
     ResearcherService,
@@ -35,6 +38,7 @@ import { OrchestrationService } from './orchestration.service';
     WriterService,
     ReviewerService,
     OrchestrationService,
+    EmbeddingsService,
   ],
 })
 export class AiAgentsModule {}

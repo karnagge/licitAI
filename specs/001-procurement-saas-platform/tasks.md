@@ -121,11 +121,11 @@
 - [X] T056 [P] [US1] Define Chat entity in backend/prisma/schema.prisma
 - [X] T057 [P] [US1] Define Message entity in backend/prisma/schema.prisma with embedding vector
 - [X] T058 [SEC] [US1] Create migration for projects, templates, documents, document_versions, chats, messages tables
-- [ ] T059 [SEC] [US1] Enable RLS policies for all US1 entities in migration
-- [ ] T060 [PF] [US1] Create HNSW vector indexes on document.embedding and message.embedding in migration
-- [ ] T061 [PF] [US1] Create composite indexes on (tenant_id, project_id, status) for documents in migration
-- [ ] T062 [PF] [US1] Create composite indexes on (tenant_id, project_id, updated_at DESC) for chats in migration
-- [ ] T063 [US1] Seed system templates (ETP, Bidding Notice, Contract) in backend/prisma/seed.ts
+- [X] T059 [SEC] [US1] Enable RLS policies for all US1 entities in migration
+- [X] T060 [PF] [US1] Create HNSW vector indexes on document.embedding and message.embedding in migration
+- [X] T061 [PF] [US1] Create composite indexes on (tenant_id, project_id, status) for documents in migration
+- [X] T062 [PF] [US1] Create composite indexes on (tenant_id, project_id, updated_at DESC) for chats in migration
+- [X] T063 [US1] Seed system templates (ETP, Bidding Notice, Contract) in backend/prisma/seed.ts
 
 ### Backend - Organizations Module (US1)
 
@@ -179,10 +179,10 @@
 - [X] T093 [P] [US1] Create Document DTOs in backend/src/modules/documents/dto/
 - [X] T094 [SEC] [US1] Create Documents service with tenant isolation in backend/src/modules/documents/documents.service.ts
 - [X] T095 [US1] Implement document version creation logic in Documents service
-- [ ] T096 [PF] [US1] Implement async embedding generation for documents in Documents service
+- [X] T096 [PF] [US1] Implement async embedding generation for documents in Documents service
 - [X] T097 [US1] Create Documents controller with POST /projects/:projectId/documents and GET /documents/:id endpoints in backend/src/modules/documents/documents.controller.ts
-- [ ] T098 [US1] Implement document export to PDF in backend/src/modules/documents/documents.service.ts
-- [ ] T099 [US1] Implement document export to DOCX in backend/src/modules/documents/documents.service.ts
+- [X] T098 [US1] Implement document export to PDF in backend/src/modules/documents/documents.service.ts
+- [X] T099 [US1] Implement document export to DOCX in backend/src/modules/documents/documents.service.ts
 - [X] T100 [US1] Create Documents module in backend/src/modules/documents/documents.module.ts
 
 ### Frontend - Authentication Pages (US1)

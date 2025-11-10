@@ -6,7 +6,10 @@ import {
   Patch,
   Param,
   Query,
+  Res,
+  StreamableFile,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
@@ -77,5 +80,54 @@ export class DocumentsController {
   @Get(':id/versions')
   getVersions(@Param('id') id: string, @CurrentTenant() tenantId: string) {
     return this.documentsService.getVersions(id, tenantId);
+  }
+
+  /**
+   * GET /documents/:id/export/pdf
+   * Export document to PDF
+   */
+  @Get(':id/export/pdf')
+  async exportPDF(
+    @Param('id') id: string,
+    @CurrentTenant() tenantId: string,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const pdfStream = await this.documentsService.exportToPDF(id, tenantId);
+
+    // Get document to set filename
+    const document = await this.documentsService.findOne(id, tenantId);
+    const filename = `${document.title.replace(/[^a-z0-9]/gi, '_')}.pdf`;
+
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${filename}"`,
+    });
+
+    return new StreamableFile(pdfStream);
+  }
+
+  /**
+   * GET /documents/:id/export/docx
+   * Export document to DOCX
+   */
+  @Get(':id/export/docx')
+  async exportDOCX(
+    @Param('id') id: string,
+    @CurrentTenant() tenantId: string,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const docxBuffer = await this.documentsService.exportToDOCX(id, tenantId);
+
+    // Get document to set filename
+    const document = await this.documentsService.findOne(id, tenantId);
+    const filename = `${document.title.replace(/[^a-z0-9]/gi, '_')}.docx`;
+
+    res.set({
+      'Content-Type':
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'Content-Disposition': `attachment; filename="${filename}"`,
+    });
+
+    return new StreamableFile(docxBuffer);
   }
 }

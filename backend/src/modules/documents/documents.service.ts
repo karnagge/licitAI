@@ -2,14 +2,30 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
+import { EmbeddingsService } from '../ai-agents/embeddings.service';
+import PDFDocument from 'pdfkit';
+import {
+  Document,
+  Packer,
+  Paragraph,
+  TextRun,
+  HeadingLevel,
+} from 'docx';
+import { Readable } from 'stream';
 
 @Injectable()
 export class DocumentsService {
-  constructor(private prisma: PrismaService) {}
+  private readonly logger = new Logger(DocumentsService.name);
+
+  constructor(
+    private prisma: PrismaService,
+    private embeddings: EmbeddingsService,
+  ) {}
 
   /**
    * Create a new document with initial version
@@ -216,10 +232,44 @@ export class DocumentsService {
             wordCount: updateDto.content.split(/\s+/).length,
           },
         });
+
+        // Trigger async embedding generation
+        this.generateEmbeddingAsync(id, updateDto.content).catch((error) => {
+          this.logger.error(`Failed to generate embedding for document ${id}`, error);
+        });
       }
 
       return document;
     });
+  }
+
+  /**
+   * Generate embedding for document content asynchronously
+   * This runs in the background without blocking the response
+   * @param documentId - Document ID
+   * @param content - Document content
+   */
+  private async generateEmbeddingAsync(
+    documentId: string,
+    content: string,
+  ): Promise<void> {
+    try {
+      this.logger.log(`Generating embedding for document ${documentId}`);
+
+      // Generate embedding vector
+      const embedding = await this.embeddings.generateEmbedding(content);
+
+      // Update document with embedding
+      await this.prisma.document.update({
+        where: { id: documentId },
+        data: { embedding },
+      });
+
+      this.logger.log(`Embedding generated successfully for document ${documentId}`);
+    } catch (error) {
+      this.logger.error(`Embedding generation failed for document ${documentId}`, error);
+      // Don't throw - this is async and should not fail the main operation
+    }
   }
 
   /**
@@ -244,5 +294,183 @@ export class DocumentsService {
       },
       orderBy: { version: 'desc' },
     });
+  }
+
+  /**
+   * Export document to PDF
+   * @param documentId - Document ID
+   * @param tenantId - Organization ID
+   * @returns PDF buffer as stream
+   */
+  async exportToPDF(documentId: string, tenantId: string): Promise<Readable> {
+    this.logger.log(`Exporting document ${documentId} to PDF`);
+
+    // Get document with latest version
+    const document = await this.findOne(documentId, tenantId);
+    const latestVersion = document.versions[0];
+
+    if (!latestVersion || !latestVersion.content) {
+      throw new BadRequestException('Document has no content to export');
+    }
+
+    // Create PDF document
+    const pdf = new PDFDocument({
+      size: 'A4',
+      margins: { top: 50, bottom: 50, left: 50, right: 50 },
+      info: {
+        Title: document.title,
+        Author: 'licitAI Platform',
+        Subject: `${document.template.name}`,
+        CreationDate: new Date(),
+      },
+    });
+
+    // Convert HTML content to plain text (simple conversion)
+    // For production, consider using a proper HTML-to-PDF library
+    const plainText = this.htmlToPlainText(latestVersion.content);
+
+    // Add title
+    pdf.fontSize(18).font('Helvetica-Bold').text(document.title, {
+      align: 'center',
+    });
+
+    pdf.moveDown();
+
+    // Add metadata
+    pdf
+      .fontSize(10)
+      .font('Helvetica')
+      .text(`Template: ${document.template.name}`, { align: 'left' });
+    pdf.text(`Versão: ${latestVersion.version}`, { align: 'left' });
+    pdf.text(
+      `Data: ${latestVersion.createdAt.toLocaleDateString('pt-BR')}`,
+      { align: 'left' },
+    );
+
+    pdf.moveDown(2);
+
+    // Add content
+    pdf.fontSize(11).font('Helvetica').text(plainText, {
+      align: 'justify',
+      lineGap: 2,
+    });
+
+    // Finalize PDF
+    pdf.end();
+
+    this.logger.log(`PDF export completed for document ${documentId}`);
+
+    return pdf as unknown as Readable;
+  }
+
+  /**
+   * Export document to DOCX
+   * @param documentId - Document ID
+   * @param tenantId - Organization ID
+   * @returns DOCX buffer
+   */
+  async exportToDOCX(documentId: string, tenantId: string): Promise<Buffer> {
+    this.logger.log(`Exporting document ${documentId} to DOCX`);
+
+    // Get document with latest version
+    const document = await this.findOne(documentId, tenantId);
+    const latestVersion = document.versions[0];
+
+    if (!latestVersion || !latestVersion.content) {
+      throw new BadRequestException('Document has no content to export');
+    }
+
+    // Convert HTML to paragraphs (simple conversion)
+    const plainText = this.htmlToPlainText(latestVersion.content);
+    const paragraphs = plainText.split('\n\n').filter((p) => p.trim());
+
+    // Create DOCX document
+    const doc = new Document({
+      sections: [
+        {
+          properties: {},
+          children: [
+            // Title
+            new Paragraph({
+              text: document.title,
+              heading: HeadingLevel.TITLE,
+              spacing: { after: 200 },
+            }),
+            // Metadata
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `Template: ${document.template.name}`,
+                  size: 20,
+                }),
+              ],
+              spacing: { after: 100 },
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `Versão: ${latestVersion.version}`,
+                  size: 20,
+                }),
+              ],
+              spacing: { after: 100 },
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `Data: ${latestVersion.createdAt.toLocaleDateString('pt-BR')}`,
+                  size: 20,
+                }),
+              ],
+              spacing: { after: 400 },
+            }),
+            // Content paragraphs
+            ...paragraphs.map(
+              (text) =>
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: text.trim(),
+                      size: 24,
+                    }),
+                  ],
+                  spacing: { after: 200 },
+                }),
+            ),
+          ],
+        },
+      ],
+    });
+
+    // Generate buffer
+    const buffer = await Packer.toBuffer(doc);
+
+    this.logger.log(`DOCX export completed for document ${documentId}`);
+
+    return buffer;
+  }
+
+  /**
+   * Simple HTML to plain text conversion
+   * For production, use a proper HTML parser
+   * @param html - HTML content
+   * @returns Plain text
+   */
+  private htmlToPlainText(html: string): string {
+    return (
+      html
+        // Remove HTML tags
+        .replace(/<[^>]*>/g, '')
+        // Decode HTML entities
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        // Normalize whitespace
+        .replace(/\s+/g, ' ')
+        .trim()
+    );
   }
 }
