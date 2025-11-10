@@ -5,10 +5,14 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { OrchestrationService } from '../ai-agents/orchestration.service';
 
 @Injectable()
 export class MessagesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private orchestration: OrchestrationService,
+  ) {}
 
   /**
    * Create a new message in a chat
@@ -54,17 +58,56 @@ export class MessagesService {
       });
 
       // Update chat message count and timestamp
-      await tx.chat.update({
+      const updatedChat = await tx.chat.update({
         where: { id: createDto.chatId },
         data: {
           messageCount: { increment: 1 },
           updatedAt: new Date(),
         },
+        include: {
+          project: {
+            include: {
+              documents: {
+                where: { status: 'DRAFT' },
+                orderBy: { createdAt: 'desc' },
+                take: 1,
+              },
+            },
+          },
+        },
       });
 
-      // TODO: Here we would trigger AI agent orchestration
-      // For now, just return the user message
-      // Future: Call AI agents to generate response
+      // Trigger AI agent orchestration if there's a draft document
+      if (updatedChat.project.documents.length > 0) {
+        const draftDocument = updatedChat.project.documents[0];
+
+        // Call orchestration asynchronously (fire and forget)
+        // The actual generation happens in background
+        // For real-time updates, use the streaming endpoint
+        this.orchestration
+          .handleChatMessage(createDto.chatId, createDto.content)
+          .then(async (result) => {
+            // Create AI response message
+            await this.prisma.message.create({
+              data: {
+                chatId: createDto.chatId,
+                content: result.response,
+                role: 'ASSISTANT',
+                createdBy: userId, // System user in production
+                metadata: { intent: result.intent },
+              },
+            });
+
+            // Update chat count
+            await this.prisma.chat.update({
+              where: { id: createDto.chatId },
+              data: { messageCount: { increment: 1 } },
+            });
+          })
+          .catch((error) => {
+            console.error('AI orchestration failed:', error);
+          });
+      }
 
       return message;
     });

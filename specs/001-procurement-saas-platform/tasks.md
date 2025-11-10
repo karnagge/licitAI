@@ -150,14 +150,14 @@
 
 ### Backend - AI Agents Module (US1)
 
-- [ ] T076 [P] [US1] Install Claude Agent SDK (@anthropic-ai/sdk) in backend/package.json
-- [ ] T077 [P] [US1] Create Researcher Agent service in backend/src/modules/ai-agents/researcher.service.ts
-- [ ] T078 [P] [US1] Create Validator Agent service in backend/src/modules/ai-agents/validator.service.ts
-- [ ] T079 [P] [US1] Create Writer Agent service in backend/src/modules/ai-agents/writer.service.ts
-- [ ] T080 [P] [US1] Create Reviewer Agent service in backend/src/modules/ai-agents/reviewer.service.ts
-- [ ] T081 [US1] Create Agent orchestration service in backend/src/modules/ai-agents/orchestration.service.ts
-- [ ] T082 [P] [PF] [US1] Implement SSE streaming for Writer Agent in backend/src/modules/ai-agents/writer.service.ts
-- [ ] T083 [US1] Create AI Agents module in backend/src/modules/ai-agents/ai-agents.module.ts
+- [X] T076 [P] [US1] Install Claude Agent SDK (@anthropic-ai/sdk) in backend/package.json
+- [X] T077 [P] [US1] Create Researcher Agent service in backend/src/modules/ai-agents/researcher.service.ts
+- [X] T078 [P] [US1] Create Validator Agent service in backend/src/modules/ai-agents/validator.service.ts
+- [X] T079 [P] [US1] Create Writer Agent service in backend/src/modules/ai-agents/writer.service.ts
+- [X] T080 [P] [US1] Create Reviewer Agent service in backend/src/modules/ai-agents/reviewer.service.ts
+- [X] T081 [US1] Create Agent orchestration service in backend/src/modules/ai-agents/orchestration.service.ts
+- [X] T082 [P] [PF] [US1] Implement SSE streaming for Writer Agent in backend/src/modules/ai-agents/writer.service.ts
+- [X] T083 [US1] Create AI Agents module in backend/src/modules/ai-agents/ai-agents.module.ts
 
 ### Backend - Chats Module (US1)
 
@@ -171,7 +171,7 @@
 - [X] T088 [P] [US1] Create Message DTOs in backend/src/modules/messages/dto/
 - [X] T089 [SEC] [US1] Create Messages service with input validation before AI calls in backend/src/modules/messages/messages.service.ts
 - [X] T090 [PF] [US1] Create Messages controller with SSE endpoint POST /chats/:chatId/messages/stream in backend/src/modules/messages/messages.controller.ts
-- [ ] T091 [US1] Integrate agent orchestration in Messages service message handler
+- [X] T091 [US1] Integrate agent orchestration in Messages service message handler
 - [X] T092 [US1] Create Messages module in backend/src/modules/messages/messages.module.ts
 
 ### Backend - Documents Module (US1)
