@@ -87,14 +87,14 @@
 
 ### Frontend Infrastructure
 
-- [ ] T041 Create TanStack Query client configuration in frontend/src/services/queryClient.ts
-- [ ] T042 [P] Create Axios HTTP client with interceptors in frontend/src/services/api.ts
-- [ ] T043 [P] Create authentication context in frontend/src/contexts/AuthContext.tsx
-- [ ] T044 Setup React Router with protected routes in frontend/src/App.tsx
-- [ ] T045 [P] [UX] Create base UI components (Button, Input, Card) in frontend/src/components/ui/
-- [ ] T046 [P] [UX] Create base layout components in frontend/src/components/layouts/DashboardLayout.tsx
-- [ ] T047 [UX] Define consistent spacing scale in frontend/src/styles/globals.css
-- [ ] T048 [UX] Setup color system with WCAG AA compliant contrast ratios in frontend/tailwind.config.js
+- [X] T041 Create TanStack Query client configuration in frontend/src/services/queryClient.ts
+- [X] T042 [P] Create Axios HTTP client with interceptors in frontend/src/services/api.ts
+- [X] T043 [P] Create authentication context in frontend/src/contexts/AuthContext.tsx
+- [X] T044 Setup React Router with protected routes in frontend/src/App.tsx
+- [X] T045 [P] [UX] Create base UI components (Button, Input, Card) in frontend/src/components/ui/
+- [X] T046 [P] [UX] Create base layout components in frontend/src/components/layouts/DashboardLayout.tsx
+- [X] T047 [UX] Define consistent spacing scale in frontend/src/styles/globals.css
+- [X] T048 [UX] Setup color system with WCAG AA compliant contrast ratios in frontend/tailwind.config.js
 
 ### Shared Types
 
