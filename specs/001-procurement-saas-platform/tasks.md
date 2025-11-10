@@ -143,10 +143,10 @@
 
 ### Backend - Templates Module (US1)
 
-- [ ] T072 [P] [US1] Create Template DTOs in backend/src/modules/templates/dto/
-- [ ] T073 [US1] Create Templates service with system and custom template logic in backend/src/modules/templates/templates.service.ts
-- [ ] T074 [US1] Create Templates controller with GET /templates endpoint in backend/src/modules/templates/templates.controller.ts
-- [ ] T075 [US1] Create Templates module in backend/src/modules/templates/templates.module.ts
+- [X] T072 [P] [US1] Create Template DTOs in backend/src/modules/templates/dto/
+- [X] T073 [US1] Create Templates service with system and custom template logic in backend/src/modules/templates/templates.service.ts
+- [X] T074 [US1] Create Templates controller with GET /templates endpoint in backend/src/modules/templates/templates.controller.ts
+- [X] T075 [US1] Create Templates module in backend/src/modules/templates/templates.module.ts
 
 ### Backend - AI Agents Module (US1)
 
@@ -161,29 +161,29 @@
 
 ### Backend - Chats Module (US1)
 
-- [ ] T084 [P] [US1] Create Chat DTOs in backend/src/modules/chats/dto/
-- [ ] T085 [SEC] [US1] Create Chats service with tenant isolation in backend/src/modules/chats/chats.service.ts
-- [ ] T086 [US1] Create Chats controller with POST /projects/:projectId/chats endpoint in backend/src/modules/chats/chats.controller.ts
-- [ ] T087 [US1] Create Chats module in backend/src/modules/chats/chats.module.ts
+- [X] T084 [P] [US1] Create Chat DTOs in backend/src/modules/chats/dto/
+- [X] T085 [SEC] [US1] Create Chats service with tenant isolation in backend/src/modules/chats/chats.service.ts
+- [X] T086 [US1] Create Chats controller with POST /projects/:projectId/chats endpoint in backend/src/modules/chats/chats.controller.ts
+- [X] T087 [US1] Create Chats module in backend/src/modules/chats/chats.module.ts
 
 ### Backend - Messages Module (US1)
 
-- [ ] T088 [P] [US1] Create Message DTOs in backend/src/modules/messages/dto/
-- [ ] T089 [SEC] [US1] Create Messages service with input validation before AI calls in backend/src/modules/messages/messages.service.ts
-- [ ] T090 [PF] [US1] Create Messages controller with SSE endpoint POST /chats/:chatId/messages/stream in backend/src/modules/messages/messages.controller.ts
+- [X] T088 [P] [US1] Create Message DTOs in backend/src/modules/messages/dto/
+- [X] T089 [SEC] [US1] Create Messages service with input validation before AI calls in backend/src/modules/messages/messages.service.ts
+- [X] T090 [PF] [US1] Create Messages controller with SSE endpoint POST /chats/:chatId/messages/stream in backend/src/modules/messages/messages.controller.ts
 - [ ] T091 [US1] Integrate agent orchestration in Messages service message handler
-- [ ] T092 [US1] Create Messages module in backend/src/modules/messages/messages.module.ts
+- [X] T092 [US1] Create Messages module in backend/src/modules/messages/messages.module.ts
 
 ### Backend - Documents Module (US1)
 
-- [ ] T093 [P] [US1] Create Document DTOs in backend/src/modules/documents/dto/
-- [ ] T094 [SEC] [US1] Create Documents service with tenant isolation in backend/src/modules/documents/documents.service.ts
-- [ ] T095 [US1] Implement document version creation logic in Documents service
+- [X] T093 [P] [US1] Create Document DTOs in backend/src/modules/documents/dto/
+- [X] T094 [SEC] [US1] Create Documents service with tenant isolation in backend/src/modules/documents/documents.service.ts
+- [X] T095 [US1] Implement document version creation logic in Documents service
 - [ ] T096 [PF] [US1] Implement async embedding generation for documents in Documents service
-- [ ] T097 [US1] Create Documents controller with POST /projects/:projectId/documents and GET /documents/:id endpoints in backend/src/modules/documents/documents.controller.ts
+- [X] T097 [US1] Create Documents controller with POST /projects/:projectId/documents and GET /documents/:id endpoints in backend/src/modules/documents/documents.controller.ts
 - [ ] T098 [US1] Implement document export to PDF in backend/src/modules/documents/documents.service.ts
 - [ ] T099 [US1] Implement document export to DOCX in backend/src/modules/documents/documents.service.ts
-- [ ] T100 [US1] Create Documents module in backend/src/modules/documents/documents.module.ts
+- [X] T100 [US1] Create Documents module in backend/src/modules/documents/documents.module.ts
 
 ### Frontend - Authentication Pages (US1)
 

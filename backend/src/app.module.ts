@@ -3,6 +3,12 @@ import { APP_GUARD, APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { OrganizationsModule } from './modules/organizations/organizations.module';
+import { ProjectsModule } from './modules/projects/projects.module';
+import { TemplatesModule } from './modules/templates/templates.module';
+import { DocumentsModule } from './modules/documents/documents.module';
+import { ChatsModule } from './modules/chats/chats.module';
+import { MessagesModule } from './modules/messages/messages.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
@@ -15,6 +21,12 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
     }),
     PrismaModule,
     AuthModule,
+    OrganizationsModule,
+    ProjectsModule,
+    TemplatesModule,
+    DocumentsModule,
+    ChatsModule,
+    MessagesModule,
   ],
   controllers: [],
   providers: [
