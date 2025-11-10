@@ -3,8 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
-
-type OrganizationType = 'MUNICIPALITY' | 'STATE' | 'FEDERAL' | 'CONSORTIUM';
+import { OrganizationType } from '../../../../shared/types/enums';
 
 /**
  * RegisterForm Component
@@ -12,10 +11,15 @@ type OrganizationType = 'MUNICIPALITY' | 'STATE' | 'FEDERAL' | 'CONSORTIUM';
  * Handles user registration with organization creation.
  * Creates both organization and admin user in a single flow.
  *
+ * The backend /auth/register endpoint:
+ * 1. Creates the organization first
+ * 2. Creates the admin user linked to that organization
+ * 3. Returns JWT tokens for immediate authentication
+ *
  * Features:
  * - Multi-field validation
  * - Password confirmation
- * - Organization type selection
+ * - Organization type selection (aligned with Prisma schema)
  * - Error handling
  * - Loading states
  */
@@ -29,7 +33,7 @@ export function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [organizationName, setOrganizationName] = useState('');
   const [organizationType, setOrganizationType] =
-    useState<OrganizationType>('MUNICIPALITY');
+    useState<OrganizationType>(OrganizationType.MUNICIPAL);
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -207,10 +211,10 @@ export function RegisterForm() {
               disabled={isLoading}
               required
             >
-              <option value="MUNICIPALITY">Município</option>
-              <option value="STATE">Estado</option>
-              <option value="FEDERAL">Federal</option>
-              <option value="CONSORTIUM">Consórcio</option>
+              <option value={OrganizationType.MUNICIPAL}>Municipal</option>
+              <option value={OrganizationType.STATE}>Estadual</option>
+              <option value={OrganizationType.FEDERAL}>Federal</option>
+              <option value={OrganizationType.AUTONOMOUS}>Autônoma</option>
             </select>
           </div>
         </div>
