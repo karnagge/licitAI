@@ -64,26 +64,26 @@
 
 ### Authentication & Authorization
 
-- [ ] T024 Setup Passport.js with JWT strategy in backend/src/modules/auth/strategies/jwt.strategy.ts
-- [ ] T025 [P] Setup Passport.js with Local strategy in backend/src/modules/auth/strategies/local.strategy.ts
-- [ ] T026 Create JWT authentication guard in backend/src/common/guards/jwt-auth.guard.ts
-- [ ] T027 [P] [SEC] Create tenant isolation guard in backend/src/common/guards/tenant.guard.ts
-- [ ] T028 [P] Create role-based authorization guard in backend/src/common/guards/roles.guard.ts
-- [ ] T029 Create CurrentUser decorator in backend/src/common/decorators/current-user.decorator.ts
-- [ ] T030 [P] Create CurrentTenant decorator in backend/src/common/decorators/current-tenant.decorator.ts
-- [ ] T031 Create Auth DTOs (LoginDto, RegisterDto) in backend/src/modules/auth/dto/
-- [ ] T032 Create Auth service with bcrypt password hashing in backend/src/modules/auth/auth.service.ts
-- [ ] T033 Create Auth controller with /login and /register endpoints in backend/src/modules/auth/auth.controller.ts
-- [ ] T034 Create Auth module in backend/src/modules/auth/auth.module.ts
-- [ ] T035 Setup Prisma middleware for automatic tenant_id injection in backend/src/prisma/prisma.service.ts
-- [ ] T036 Configure CORS middleware in backend/src/main.ts to allow frontend origin
+- [X] T024 Setup Passport.js with JWT strategy in backend/src/modules/auth/strategies/jwt.strategy.ts
+- [X] T025 [P] Setup Passport.js with Local strategy in backend/src/modules/auth/strategies/local.strategy.ts
+- [X] T026 Create JWT authentication guard in backend/src/common/guards/jwt-auth.guard.ts
+- [X] T027 [P] [SEC] Create tenant isolation guard in backend/src/common/guards/tenant.guard.ts
+- [X] T028 [P] Create role-based authorization guard in backend/src/common/guards/roles.guard.ts
+- [X] T029 Create CurrentUser decorator in backend/src/common/decorators/current-user.decorator.ts
+- [X] T030 [P] Create CurrentTenant decorator in backend/src/common/decorators/current-tenant.decorator.ts
+- [X] T031 Create Auth DTOs (LoginDto, RegisterDto) in backend/src/modules/auth/dto/
+- [X] T032 Create Auth service with bcrypt password hashing in backend/src/modules/auth/auth.service.ts
+- [X] T033 Create Auth controller with /login and /register endpoints in backend/src/modules/auth/auth.controller.ts
+- [X] T034 Create Auth module in backend/src/modules/auth/auth.module.ts
+- [X] T035 Setup Prisma middleware for automatic tenant_id injection in backend/src/prisma/prisma.service.ts
+- [X] T036 Configure CORS middleware in backend/src/main.ts to allow frontend origin
 
 ### API Infrastructure
 
-- [ ] T037 [P] Create global exception filter in backend/src/common/filters/http-exception.filter.ts
-- [ ] T038 [P] Create logging interceptor in backend/src/common/interceptors/logging.interceptor.ts
-- [ ] T039 [P] Setup Class-validator pipes in backend/src/main.ts for DTO validation
-- [ ] T040 Create API version prefix /v1 in backend/src/main.ts
+- [X] T037 [P] Create global exception filter in backend/src/common/filters/http-exception.filter.ts
+- [X] T038 [P] Create logging interceptor in backend/src/common/interceptors/logging.interceptor.ts
+- [X] T039 [P] Setup Class-validator pipes in backend/src/main.ts for DTO validation
+- [X] T040 Create API version prefix /v1 in backend/src/main.ts
 
 ### Frontend Infrastructure
 
@@ -98,9 +98,9 @@
 
 ### Shared Types
 
-- [ ] T049 [P] Define shared entity types in shared/types/entities.ts
-- [ ] T050 [P] Define shared enum types in shared/types/enums.ts
-- [ ] T051 [P] Define shared DTO types in shared/types/dtos.ts
+- [X] T049 [P] Define shared entity types in shared/types/entities.ts
+- [X] T050 [P] Define shared enum types in shared/types/enums.ts
+- [X] T051 [P] Define shared DTO types in shared/types/dtos.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
