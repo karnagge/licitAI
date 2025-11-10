@@ -114,13 +114,13 @@
 
 ### Database Schema for US1
 
-- [ ] T052 [P] [US1] Define Project entity in backend/prisma/schema.prisma with tenant isolation
-- [ ] T053 [P] [US1] Define Template entity in backend/prisma/schema.prisma with sections JSONB field
-- [ ] T054 [P] [US1] Define Document entity in backend/prisma/schema.prisma with embedding vector
-- [ ] T055 [P] [US1] Define DocumentVersion entity in backend/prisma/schema.prisma with immutable versions
-- [ ] T056 [P] [US1] Define Chat entity in backend/prisma/schema.prisma
-- [ ] T057 [P] [US1] Define Message entity in backend/prisma/schema.prisma with embedding vector
-- [ ] T058 [SEC] [US1] Create migration for projects, templates, documents, document_versions, chats, messages tables
+- [X] T052 [P] [US1] Define Project entity in backend/prisma/schema.prisma with tenant isolation
+- [X] T053 [P] [US1] Define Template entity in backend/prisma/schema.prisma with sections JSONB field
+- [X] T054 [P] [US1] Define Document entity in backend/prisma/schema.prisma with embedding vector
+- [X] T055 [P] [US1] Define DocumentVersion entity in backend/prisma/schema.prisma with immutable versions
+- [X] T056 [P] [US1] Define Chat entity in backend/prisma/schema.prisma
+- [X] T057 [P] [US1] Define Message entity in backend/prisma/schema.prisma with embedding vector
+- [X] T058 [SEC] [US1] Create migration for projects, templates, documents, document_versions, chats, messages tables
 - [ ] T059 [SEC] [US1] Enable RLS policies for all US1 entities in migration
 - [ ] T060 [PF] [US1] Create HNSW vector indexes on document.embedding and message.embedding in migration
 - [ ] T061 [PF] [US1] Create composite indexes on (tenant_id, project_id, status) for documents in migration
@@ -129,17 +129,17 @@
 
 ### Backend - Organizations Module (US1)
 
-- [ ] T064 [P] [US1] Create Organization DTOs in backend/src/modules/organizations/dto/
-- [ ] T065 [US1] Create Organizations service in backend/src/modules/organizations/organizations.service.ts
-- [ ] T066 [US1] Create Organizations controller with POST /organizations endpoint in backend/src/modules/organizations/organizations.controller.ts
-- [ ] T067 [US1] Create Organizations module in backend/src/modules/organizations/organizations.module.ts
+- [X] T064 [P] [US1] Create Organization DTOs in backend/src/modules/organizations/dto/
+- [X] T065 [US1] Create Organizations service in backend/src/modules/organizations/organizations.service.ts
+- [X] T066 [US1] Create Organizations controller with POST /organizations endpoint in backend/src/modules/organizations/organizations.controller.ts
+- [X] T067 [US1] Create Organizations module in backend/src/modules/organizations/organizations.module.ts
 
 ### Backend - Projects Module (US1)
 
-- [ ] T068 [P] [US1] Create Project DTOs in backend/src/modules/projects/dto/
-- [ ] T069 [SEC] [US1] Create Projects service with tenant isolation in backend/src/modules/projects/projects.service.ts
-- [ ] T070 [US1] Create Projects controller with GET /projects and POST /projects endpoints in backend/src/modules/projects/projects.controller.ts
-- [ ] T071 [US1] Create Projects module in backend/src/modules/projects/projects.module.ts
+- [X] T068 [P] [US1] Create Project DTOs in backend/src/modules/projects/dto/
+- [X] T069 [SEC] [US1] Create Projects service with tenant isolation in backend/src/modules/projects/projects.service.ts
+- [X] T070 [US1] Create Projects controller with GET /projects and POST /projects endpoints in backend/src/modules/projects/projects.controller.ts
+- [X] T071 [US1] Create Projects module in backend/src/modules/projects/projects.module.ts
 
 ### Backend - Templates Module (US1)
 
