@@ -3,33 +3,8 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { queryClient } from './services/queryClient';
-
-// Placeholder pages (will be implemented in Phase 3)
-function LoginPage() {
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="max-w-md w-full">
-        <h1 className="text-2xl font-bold text-center mb-8">Login - licitAI</h1>
-        <p className="text-center text-gray-600">
-          Página de login será implementada na Phase 3
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function RegisterPage() {
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="max-w-md w-full">
-        <h1 className="text-2xl font-bold text-center mb-8">Registro - licitAI</h1>
-        <p className="text-center text-gray-600">
-          Página de registro será implementada na Phase 3
-        </p>
-      </div>
-    </div>
-  );
-}
+import { Login } from './pages/auth/Login';
+import { Register } from './pages/auth/Register';
 
 function DashboardPage() {
   return (
@@ -53,8 +28,8 @@ function App() {
         <AuthProvider>
           <Routes>
             {/* Public routes */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
             {/* Protected routes */}
             <Route element={<ProtectedRoute />}>

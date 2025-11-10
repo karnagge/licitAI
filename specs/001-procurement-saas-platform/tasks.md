@@ -187,11 +187,11 @@
 
 ### Frontend - Authentication Pages (US1)
 
-- [ ] T101 [P] [UX] [US1] Create LoginForm component in frontend/src/components/forms/LoginForm.tsx
-- [ ] T102 [P] [UX] [US1] Create RegisterForm component in frontend/src/components/forms/RegisterForm.tsx
-- [ ] T103 [UX] [US1] Create Login page in frontend/src/pages/auth/Login.tsx
-- [ ] T104 [P] [UX] [US1] Create Register page in frontend/src/pages/auth/Register.tsx
-- [ ] T105 [US1] Create authentication API hooks in frontend/src/hooks/useAuth.ts
+- [X] T101 [P] [UX] [US1] Create LoginForm component in frontend/src/components/forms/LoginForm.tsx
+- [X] T102 [P] [UX] [US1] Create RegisterForm component in frontend/src/components/forms/RegisterForm.tsx
+- [X] T103 [UX] [US1] Create Login page in frontend/src/pages/auth/Login.tsx
+- [X] T104 [P] [UX] [US1] Create Register page in frontend/src/pages/auth/Register.tsx
+- [X] T105 [US1] Create authentication API hooks in frontend/src/hooks/useAuth.ts
 
 ### Frontend - Organization Setup (US1)
 
