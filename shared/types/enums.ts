@@ -29,3 +29,23 @@ export enum TemplateType {
   CONTRACT = 'CONTRACT',
   CUSTOM = 'CUSTOM',
 }
+
+export enum DocumentStatus {
+  DRAFT = 'DRAFT',
+  IN_REVIEW = 'IN_REVIEW',
+  FINAL = 'FINAL',
+  ARCHIVED = 'ARCHIVED',
+}
+
+export enum ContentFormat {
+  HTML = 'HTML',
+  MARKDOWN = 'MARKDOWN',
+}
+
+export enum ChangeType {
+  INITIAL = 'INITIAL',
+  AI_GENERATED = 'AI_GENERATED',
+  MANUAL_EDIT = 'MANUAL_EDIT',
+  ROLLBACK = 'ROLLBACK',
+  AUTO_SAVE = 'AUTO_SAVE',
+}

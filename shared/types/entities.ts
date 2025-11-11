@@ -75,3 +75,31 @@ export interface Message {
   createdAt: Date;
   embedding?: number[]; // Vector embedding for RAG
 }
+
+export interface Document {
+  id: string;
+  title: string;
+  status: string;
+  tenantId: string;
+  projectId: string;
+  templateId: string;
+  currentVersion: number;
+  createdBy: string;
+  createdAt: Date;
+  updatedAt: Date;
+  finalizedAt?: Date;
+}
+
+export interface DocumentVersion {
+  id: string;
+  documentId: string;
+  version: number;
+  content: string;
+  contentFormat: string;
+  changeType: string;
+  changeDescription?: string;
+  createdBy: string;
+  createdAt: Date;
+  wordCount: number;
+  metadata?: any; // JSONB field
+}
