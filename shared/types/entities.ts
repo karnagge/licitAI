@@ -54,3 +54,24 @@ export interface Template {
   updatedAt: Date;
   usageCount: number;
 }
+
+export interface Chat {
+  id: string;
+  projectId: string;
+  title?: string;
+  tenantId: string;
+  createdBy: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Message {
+  id: string;
+  chatId: string;
+  content: string;
+  role: 'user' | 'assistant' | 'system';
+  tenantId: string;
+  createdBy?: string;
+  createdAt: Date;
+  embedding?: number[]; // Vector embedding for RAG
+}
