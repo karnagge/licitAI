@@ -64,6 +64,31 @@ export async function getDocumentVersions(documentId: string): Promise<DocumentV
 }
 
 /**
+ * Get a specific version of a document
+ */
+export async function getDocumentVersion(
+  documentId: string,
+  version: number
+): Promise<DocumentVersion> {
+  const response = await api.get<DocumentVersion>(`/documents/${documentId}/versions/${version}`);
+  return response.data;
+}
+
+/**
+ * Rollback document to a previous version
+ * Creates a new version with content from the specified version
+ */
+export async function rollbackDocument(
+  documentId: string,
+  version: number
+): Promise<Document> {
+  const response = await api.post<Document>(`/documents/${documentId}/rollback`, {
+    version,
+  });
+  return response.data;
+}
+
+/**
  * Export document to PDF
  * Returns a blob URL for download
  */
@@ -105,6 +130,8 @@ export const documentService = {
   getDocumentById,
   updateDocument,
   getDocumentVersions,
+  getDocumentVersion,
+  rollbackDocument,
   exportDocumentToPDF,
   exportDocumentToDOCX,
   downloadBlob,

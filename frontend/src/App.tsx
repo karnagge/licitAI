@@ -5,17 +5,11 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { queryClient } from './services/queryClient';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
-
-function DashboardPage() {
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <p className="text-gray-600">
-        Dashboard será implementado na Phase 3 - User Story 1
-      </p>
-    </div>
-  );
-}
+import { Dashboard } from './pages/dashboard/Dashboard';
+import { ProjectDetail } from './pages/projects/ProjectDetail';
+import { TemplateSelection } from './pages/projects/TemplateSelection';
+import { DocumentView } from './pages/projects/DocumentView';
+import { VersionHistory } from './pages/documents/VersionHistory';
 
 /**
  * Main App Component
@@ -33,9 +27,11 @@ function App() {
 
             {/* Protected routes */}
             <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/projects" element={<DashboardPage />} />
-              <Route path="/templates" element={<DashboardPage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/projects/:projectId" element={<ProjectDetail />} />
+              <Route path="/projects/:projectId/templates" element={<TemplateSelection />} />
+              <Route path="/documents/:documentId" element={<DocumentView />} />
+              <Route path="/documents/:documentId/versions" element={<VersionHistory />} />
             </Route>
 
             {/* Redirect root to dashboard */}

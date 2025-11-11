@@ -6,6 +6,8 @@ import {
   getDocumentById,
   updateDocument,
   getDocumentVersions,
+  getDocumentVersion,
+  rollbackDocument,
   exportDocumentToPDF,
   exportDocumentToDOCX,
   downloadBlob,
@@ -25,6 +27,8 @@ export const documentKeys = {
   detail: (id: string) => [...documentKeys.details(), id] as const,
   versions: (documentId: string) =>
     [...documentKeys.all, 'versions', documentId] as const,
+  version: (documentId: string, version: number) =>
+    [...documentKeys.all, 'version', documentId, version] as const,
 };
 
 /**
@@ -57,6 +61,17 @@ export function useDocumentVersions(documentId: string) {
     queryKey: documentKeys.versions(documentId),
     queryFn: () => getDocumentVersions(documentId),
     enabled: !!documentId,
+  });
+}
+
+/**
+ * Hook to fetch a specific document version
+ */
+export function useDocumentVersion(documentId: string, version: number) {
+  return useQuery({
+    queryKey: documentKeys.version(documentId, version),
+    queryFn: () => getDocumentVersion(documentId, version),
+    enabled: !!documentId && version > 0,
   });
 }
 
@@ -98,6 +113,35 @@ export function useUpdateDocument() {
       });
       queryClient.invalidateQueries({
         queryKey: documentKeys.versions(updatedDocument.id),
+      });
+    },
+  });
+}
+
+/**
+ * Hook to rollback a document to a previous version
+ */
+export function useRollbackDocument() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ documentId, version }: { documentId: string; version: number }) =>
+      rollbackDocument(documentId, version),
+    onSuccess: (updatedDocument) => {
+      // Update the specific document in cache
+      queryClient.setQueryData(
+        documentKeys.detail(updatedDocument.id),
+        updatedDocument
+      );
+      // Invalidate document details, versions, and project list
+      queryClient.invalidateQueries({
+        queryKey: documentKeys.detail(updatedDocument.id),
+      });
+      queryClient.invalidateQueries({
+        queryKey: documentKeys.versions(updatedDocument.id),
+      });
+      queryClient.invalidateQueries({
+        queryKey: documentKeys.listByProject(updatedDocument.projectId),
       });
     },
   });

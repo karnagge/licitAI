@@ -7,7 +7,9 @@ import {
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
+import { ImproveTextDto } from './dto/improve-text.dto';
 import { EmbeddingsService } from '../ai-agents/embeddings.service';
+import { RefinementService } from '../ai-agents/refinement.service';
 import PDFDocument from 'pdfkit';
 import {
   Document,
@@ -25,6 +27,7 @@ export class DocumentsService {
   constructor(
     private prisma: PrismaService,
     private embeddings: EmbeddingsService,
+    private refinement: RefinementService,
   ) {}
 
   /**
@@ -294,6 +297,140 @@ export class DocumentsService {
       },
       orderBy: { version: 'desc' },
     });
+  }
+
+  /**
+   * Get a specific version of a document
+   * @param documentId - Document ID
+   * @param version - Version number
+   * @param tenantId - Organization ID
+   * @returns Specific version details
+   */
+  async findVersion(documentId: string, version: number, tenantId: string) {
+    // Verify document belongs to tenant
+    await this.findOne(documentId, tenantId);
+
+    const documentVersion = await this.prisma.documentVersion.findFirst({
+      where: {
+        documentId,
+        version,
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            fullName: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    if (!documentVersion) {
+      throw new NotFoundException(
+        `Version ${version} not found for document ${documentId}`,
+      );
+    }
+
+    return documentVersion;
+  }
+
+  /**
+   * Rollback document to a previous version
+   * Creates a new version with the content from the specified version
+   * @param documentId - Document ID
+   * @param targetVersion - Version to rollback to
+   * @param tenantId - Organization ID
+   * @param userId - User ID performing rollback
+   * @returns Updated document
+   */
+  async rollback(
+    documentId: string,
+    targetVersion: number,
+    tenantId: string,
+    userId: string,
+  ) {
+    this.logger.log(
+      `Rolling back document ${documentId} to version ${targetVersion}`,
+    );
+
+    // Verify document belongs to tenant
+    const document = await this.findOne(documentId, tenantId);
+
+    // Get target version to rollback to
+    const targetVersionData = await this.findVersion(
+      documentId,
+      targetVersion,
+      tenantId,
+    );
+
+    // Cannot rollback to current version
+    if (targetVersion === document.currentVersion) {
+      throw new BadRequestException(
+        'Cannot rollback to current version',
+      );
+    }
+
+    // Create new version with content from target version
+    return this.prisma.$transaction(async (tx) => {
+      const newVersionNumber = document.currentVersion + 1;
+
+      // Update document
+      const updatedDocument = await tx.document.update({
+        where: { id: documentId },
+        data: {
+          currentVersion: newVersionNumber,
+          updatedAt: new Date(),
+        },
+      });
+
+      // Create new version with old content
+      await tx.documentVersion.create({
+        data: {
+          documentId,
+          version: newVersionNumber,
+          content: targetVersionData.content,
+          contentFormat: targetVersionData.contentFormat,
+          changeType: 'ROLLBACK',
+          changeDescription: `Rollback to version ${targetVersion}`,
+          createdBy: userId,
+          wordCount: targetVersionData.wordCount,
+        },
+      });
+
+      this.logger.log(
+        `Document ${documentId} rolled back to version ${targetVersion} (new version ${newVersionNumber})`,
+      );
+
+      return updatedDocument;
+    });
+  }
+
+  /**
+   * Improve selected text using AI
+   * @param documentId - Document ID
+   * @param tenantId - Organization ID
+   * @param improveTextDto - Selected text and context
+   * @returns Improved text suggestion
+   */
+  async improveText(
+    documentId: string,
+    tenantId: string,
+    improveTextDto: ImproveTextDto,
+  ): Promise<{ suggestion: string }> {
+    // Verify document belongs to tenant
+    await this.findOne(documentId, tenantId);
+
+    this.logger.log(`Improving text for document ${documentId}`);
+
+    // Use refinement service to improve text
+    const suggestion = await this.refinement.refineText(
+      improveTextDto.selectedText,
+      improveTextDto.context,
+      improveTextDto.instruction,
+    );
+
+    return { suggestion };
   }
 
   /**

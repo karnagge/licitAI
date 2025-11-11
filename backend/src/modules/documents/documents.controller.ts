@@ -14,6 +14,7 @@ import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
 import { ImproveTextDto } from './dto/improve-text.dto';
+import { RollbackDocumentDto } from './dto/rollback-document.dto';
 import { CurrentTenant } from '../../common/decorators/current-tenant.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 
@@ -81,6 +82,33 @@ export class DocumentsController {
   @Get(':id/versions')
   getVersions(@Param('id') id: string, @CurrentTenant() tenantId: string) {
     return this.documentsService.getVersions(id, tenantId);
+  }
+
+  /**
+   * GET /documents/:id/versions/:version
+   * Get a specific version of a document
+   */
+  @Get(':id/versions/:version')
+  getVersion(
+    @Param('id') id: string,
+    @Param('version') version: string,
+    @CurrentTenant() tenantId: string,
+  ) {
+    return this.documentsService.findVersion(id, parseInt(version, 10), tenantId);
+  }
+
+  /**
+   * POST /documents/:id/rollback
+   * Rollback document to a specific version (creates new version)
+   */
+  @Post(':id/rollback')
+  rollback(
+    @Param('id') id: string,
+    @CurrentTenant() tenantId: string,
+    @CurrentUser('userId') userId: string,
+    @Body() rollbackDto: RollbackDocumentDto,
+  ) {
+    return this.documentsService.rollback(id, rollbackDto.version, tenantId, userId);
   }
 
   /**
