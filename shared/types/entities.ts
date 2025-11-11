@@ -103,3 +103,19 @@ export interface DocumentVersion {
   wordCount: number;
   metadata?: any; // JSONB field
 }
+
+export interface Attachment {
+  id: string;
+  filename: string;
+  mimeType: string;
+  sizeBytes: number;
+  storagePath: string;
+  tenantId: string;
+  projectId: string;
+  messageId?: string;
+  status: string;
+  extractedText?: string;
+  createdBy: string;
+  createdAt: Date;
+  processedAt?: Date;
+}

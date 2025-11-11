@@ -49,3 +49,10 @@ export enum ChangeType {
   ROLLBACK = 'ROLLBACK',
   AUTO_SAVE = 'AUTO_SAVE',
 }
+
+export enum AttachmentStatus {
+  UPLOADING = 'UPLOADING',
+  READY = 'READY',
+  PROCESSING = 'PROCESSING',
+  ERROR = 'ERROR',
+}
