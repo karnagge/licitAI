@@ -10,6 +10,7 @@ import { ProjectDetail } from './pages/projects/ProjectDetail';
 import { TemplateSelection } from './pages/projects/TemplateSelection';
 import { DocumentView } from './pages/projects/DocumentView';
 import { VersionHistory } from './pages/documents/VersionHistory';
+import { TemplateManagement } from './pages/templates/TemplateManagement';
 
 /**
  * Main App Component
@@ -28,6 +29,7 @@ function App() {
             {/* Protected routes */}
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/templates" element={<TemplateManagement />} />
               <Route path="/projects/:projectId" element={<ProjectDetail />} />
               <Route path="/projects/:projectId/templates" element={<TemplateSelection />} />
               <Route path="/documents/:documentId" element={<DocumentView />} />

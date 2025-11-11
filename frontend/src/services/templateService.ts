@@ -14,6 +14,12 @@ export interface CreateTemplateDto {
   sections: any; // JSONB structure
 }
 
+export interface CreateFromDocumentDto {
+  documentId: string;
+  name: string;
+  description?: string;
+}
+
 /**
  * Get all available templates (system + custom for tenant)
  * Optional filter by type
@@ -43,10 +49,22 @@ export async function createTemplate(
   return response.data;
 }
 
+/**
+ * Create a template from an existing document
+ * Extracts structure from document headings
+ */
+export async function createFromDocument(
+  data: CreateFromDocumentDto
+): Promise<Template> {
+  const response = await api.post<Template>('/templates/from-document', data);
+  return response.data;
+}
+
 export const templateService = {
   getTemplates,
   getTemplateById,
   createTemplate,
+  createFromDocument,
 };
 
 export default templateService;

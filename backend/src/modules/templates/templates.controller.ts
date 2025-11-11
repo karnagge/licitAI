@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { TemplatesService } from './templates.service';
 import { CreateTemplateDto } from './dto/create-template.dto';
+import { CreateFromDocumentDto } from './dto/create-from-document.dto';
 import { CurrentTenant } from '../../common/decorators/current-tenant.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { TemplateType } from '@prisma/client';
@@ -30,6 +31,25 @@ export class TemplatesController {
     @Body() createTemplateDto: CreateTemplateDto,
   ) {
     return this.templatesService.create(tenantId, userId, createTemplateDto);
+  }
+
+  /**
+   * POST /templates/from-document
+   * Create a template from an existing document
+   * Extracts structure from document headings
+   */
+  @Post('from-document')
+  @Roles(UserRole.ADMIN, UserRole.MANAGER)
+  createFromDocument(
+    @CurrentTenant() tenantId: string,
+    @CurrentUser('userId') userId: string,
+    @Body() createFromDocumentDto: CreateFromDocumentDto,
+  ) {
+    return this.templatesService.createFromDocument(
+      tenantId,
+      userId,
+      createFromDocumentDto,
+    );
   }
 
   /**

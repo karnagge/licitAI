@@ -1,6 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateTemplateDto } from './dto/create-template.dto';
+import { CreateFromDocumentDto } from './dto/create-from-document.dto';
 import { TemplateType } from '@prisma/client';
 
 @Injectable()
@@ -105,5 +106,99 @@ export class TemplatesService {
         usageCount: { increment: 1 },
       },
     });
+  }
+
+  /**
+   * Create a template from an existing document
+   * Extracts structure (headings) from document content
+   * @param tenantId - Organization ID
+   * @param userId - User ID creating the template
+   * @param createDto - Document ID and template info
+   * @returns Created template
+   */
+  async createFromDocument(
+    tenantId: string,
+    userId: string,
+    createDto: CreateFromDocumentDto,
+  ) {
+    // Verify document exists and belongs to tenant
+    const document = await this.prisma.document.findFirst({
+      where: {
+        id: createDto.documentId,
+        tenantId,
+      },
+      include: {
+        template: true,
+        versions: {
+          orderBy: { version: 'desc' },
+          take: 1,
+        },
+      },
+    });
+
+    if (!document) {
+      throw new NotFoundException('Document not found or access denied');
+    }
+
+    const latestVersion = document.versions[0];
+    if (!latestVersion || !latestVersion.content) {
+      throw new BadRequestException('Document has no content to extract structure from');
+    }
+
+    // Extract headings from HTML content
+    const sections = this.extractSectionsFromContent(latestVersion.content);
+
+    if (sections.length === 0) {
+      throw new BadRequestException(
+        'No sections found in document. Document must have headings (h1, h2, h3) to create template.',
+      );
+    }
+
+    // Create template
+    return this.prisma.template.create({
+      data: {
+        name: createDto.name,
+        description: createDto.description || `Template created from ${document.title}`,
+        type: document.template.type, // Inherit type from source document
+        sections,
+        tenantId,
+        createdBy: userId,
+        isSystem: false,
+      },
+    });
+  }
+
+  /**
+   * Extract section structure from HTML content
+   * Looks for h1, h2, h3 tags to identify sections
+   * @param content - HTML content
+   * @returns Array of section objects
+   */
+  private extractSectionsFromContent(content: string): any[] {
+    const sections: any[] = [];
+
+    // Simple regex to extract headings (h1, h2, h3)
+    const headingRegex = /<h([123])[^>]*>(.*?)<\/h\1>/gi;
+    let match;
+    let order = 0;
+
+    while ((match = headingRegex.exec(content)) !== null) {
+      const level = parseInt(match[1], 10);
+      const title = match[2]
+        .replace(/<[^>]+>/g, '') // Remove any nested HTML tags
+        .trim();
+
+      if (title) {
+        sections.push({
+          title,
+          description: `Section from document (heading level ${level})`,
+          order: order++,
+          required: level === 1, // H1 headings are required
+          guidelines: '',
+        });
+      }
+    }
+
+    return sections;
   }
 }

@@ -3,7 +3,9 @@ import {
   getTemplates,
   getTemplateById,
   createTemplate,
+  createFromDocument,
   type CreateTemplateDto,
+  type CreateFromDocumentDto,
 } from '../services/templateService';
 import type { TemplateType } from '../../../shared/types/enums';
 
@@ -88,6 +90,40 @@ export function useCreateTemplate() {
 
   return useMutation({
     mutationFn: createTemplate,
+    onSuccess: () => {
+      // Invalidate templates list to refetch with new template
+      queryClient.invalidateQueries({ queryKey: templateKeys.lists() });
+    },
+  });
+}
+
+/**
+ * Hook to create a template from an existing document
+ *
+ * @returns Mutation result with createFromDocument function
+ *
+ * @example
+ * ```tsx
+ * function SaveAsTemplateButton({ documentId }) {
+ *   const createFromDocMutation = useCreateFromDocument();
+ *
+ *   const handleSaveAsTemplate = async () => {
+ *     await createFromDocMutation.mutateAsync({
+ *       documentId,
+ *       name: 'My Custom Template',
+ *       description: 'Created from document XYZ',
+ *     });
+ *   };
+ *
+ *   return <Button onClick={handleSaveAsTemplate}>Save as Template</Button>;
+ * }
+ * ```
+ */
+export function useCreateFromDocument() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createFromDocument,
     onSuccess: () => {
       // Invalidate templates list to refetch with new template
       queryClient.invalidateQueries({ queryKey: templateKeys.lists() });
