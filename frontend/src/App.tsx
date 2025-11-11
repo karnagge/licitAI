@@ -11,6 +11,7 @@ import { TemplateSelection } from './pages/projects/TemplateSelection';
 import { DocumentView } from './pages/projects/DocumentView';
 import { VersionHistory } from './pages/documents/VersionHistory';
 import { TemplateManagement } from './pages/templates/TemplateManagement';
+import { TeamManagement } from './pages/team/TeamManagement';
 
 /**
  * Main App Component
@@ -30,6 +31,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/templates" element={<TemplateManagement />} />
+              <Route path="/team" element={<TeamManagement />} />
               <Route path="/projects/:projectId" element={<ProjectDetail />} />
               <Route path="/projects/:projectId/templates" element={<TemplateSelection />} />
               <Route path="/documents/:documentId" element={<DocumentView />} />
