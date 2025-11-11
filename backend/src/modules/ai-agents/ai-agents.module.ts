@@ -7,6 +7,7 @@ import { WriterService } from './writer.service';
 import { ReviewerService } from './reviewer.service';
 import { OrchestrationService } from './orchestration.service';
 import { EmbeddingsService } from './embeddings.service';
+import { RefinementService } from './refinement.service';
 
 /**
  * AI Agents Module
@@ -31,6 +32,7 @@ import { EmbeddingsService } from './embeddings.service';
     ReviewerService,
     OrchestrationService,
     EmbeddingsService,
+    RefinementService,
   ],
   exports: [
     ResearcherService,
@@ -39,6 +41,7 @@ import { EmbeddingsService } from './embeddings.service';
     ReviewerService,
     OrchestrationService,
     EmbeddingsService,
+    RefinementService,
   ],
 })
 export class AiAgentsModule {}

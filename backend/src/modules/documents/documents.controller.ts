@@ -13,6 +13,7 @@ import { Response } from 'express';
 import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
+import { ImproveTextDto } from './dto/improve-text.dto';
 import { CurrentTenant } from '../../common/decorators/current-tenant.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 
@@ -80,6 +81,19 @@ export class DocumentsController {
   @Get(':id/versions')
   getVersions(@Param('id') id: string, @CurrentTenant() tenantId: string) {
     return this.documentsService.getVersions(id, tenantId);
+  }
+
+  /**
+   * POST /documents/:id/improve
+   * Improve selected text using AI
+   */
+  @Post(':id/improve')
+  improveText(
+    @Param('id') id: string,
+    @CurrentTenant() tenantId: string,
+    @Body() improveTextDto: ImproveTextDto,
+  ) {
+    return this.documentsService.improveText(id, tenantId, improveTextDto);
   }
 
   /**
