@@ -22,3 +22,10 @@ export enum ProjectStatus {
   COMPLETED = 'COMPLETED',
   ARCHIVED = 'ARCHIVED',
 }
+
+export enum TemplateType {
+  ETP = 'ETP',
+  BIDDING_NOTICE = 'BIDDING_NOTICE',
+  CONTRACT = 'CONTRACT',
+  CUSTOM = 'CUSTOM',
+}

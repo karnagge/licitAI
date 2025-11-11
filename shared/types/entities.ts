@@ -40,3 +40,17 @@ export interface Project {
   updatedAt: Date;
   completedAt?: Date;
 }
+
+export interface Template {
+  id: string;
+  name: string;
+  description?: string;
+  type: string;
+  isSystem: boolean;
+  tenantId?: string;
+  sections: any; // JSONB field - structure depends on template type
+  createdBy?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  usageCount: number;
+}
