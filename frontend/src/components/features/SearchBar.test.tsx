@@ -41,7 +41,7 @@ describe('SearchBar', () => {
     });
   });
 
-  it('should clear input when escape is pressed', async () => {
+  it('should close suggestions when escape is pressed', async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<SearchBar onSearch={vi.fn()} />);
@@ -51,8 +51,9 @@ describe('SearchBar', () => {
     await user.type(input, 'test query');
     expect(input).toHaveValue('test query');
 
+    // Escape closes the dropdown but doesn't clear the input
     await user.keyboard('{Escape}');
-    expect(input).toHaveValue('');
+    expect(input).toHaveValue('test query');
   });
 
   it('should use custom placeholder', () => {

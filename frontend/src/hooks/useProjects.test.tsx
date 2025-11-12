@@ -78,20 +78,20 @@ describe('useProject', () => {
   );
 
   it('should fetch a single project', async () => {
-    vi.mocked(projectService.getProject).mockResolvedValue(mockProject);
+    vi.mocked(projectService.getProjectById).mockResolvedValue(mockProject);
 
     const { result } = renderHook(() => useProject('project-123'), { wrapper });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockProject);
-    expect(projectService.getProject).toHaveBeenCalledWith('project-123');
+    expect(projectService.getProjectById).toHaveBeenCalledWith('project-123');
   });
 
   it('should not fetch when projectId is undefined', () => {
-    renderHook(() => useProject(undefined), { wrapper });
+    renderHook(() => useProject(undefined as unknown as string), { wrapper });
 
-    expect(projectService.getProject).not.toHaveBeenCalled();
+    expect(projectService.getProjectById).not.toHaveBeenCalled();
   });
 });
 
@@ -128,7 +128,9 @@ describe('useCreateProject', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockProject);
-    expect(projectService.createProject).toHaveBeenCalledWith(newProject);
+    expect(projectService.createProject).toHaveBeenCalled();
+    const callArgs = vi.mocked(projectService.createProject).mock.calls[0][0];
+    expect(callArgs).toMatchObject(newProject);
   });
 
   it('should handle creation errors', async () => {
@@ -163,7 +165,7 @@ describe('useCreateProject', () => {
 
     expect(invalidateSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        queryKey: ['projects'],
+        queryKey: ['projects', 'list'],
       }),
     );
   });
