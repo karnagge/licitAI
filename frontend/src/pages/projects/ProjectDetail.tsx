@@ -6,6 +6,7 @@ import { useDocumentsByProject } from '../../hooks/useDocuments';
 import { ChatInterface } from '../../components/features/ChatInterface';
 import { DocumentViewer } from '../../components/features/DocumentViewer';
 import { DocumentToolbar } from '../../components/features/DocumentToolbar';
+import { SearchModal } from '../../components/features/SearchModal';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 
@@ -36,6 +37,7 @@ export function ProjectDetail() {
   const [activeDocumentId, setActiveDocumentId] = useState<string | null>(null);
   const [resizing, setResizing] = useState(false);
   const [chatWidth, setChatWidth] = useState(50); // percentage
+  const [searchOpen, setSearchOpen] = useState(false);
 
   // Auto-select first chat or create new one
   useEffect(() => {
@@ -92,6 +94,19 @@ export function ProjectDetail() {
     }
   }, [resizing]);
 
+  // Global keyboard shortcut for search (Cmd/Ctrl + K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const isLoading = projectLoading || chatsLoading || documentsLoading;
   const activeDocument = documents?.find((d) => d.id === activeDocumentId);
 
@@ -122,6 +137,16 @@ export function ProjectDetail() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            {/* Search Button */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-700 hover:text-gray-900 border border-gray-300 rounded-md hover:border-gray-400 transition-colors"
+              title="Buscar neste projeto (Ctrl/Cmd + K)"
+            >
+              <SearchIcon className="h-4 w-4" />
+              <span>Buscar</span>
+            </button>
+
             {documents && documents.length > 1 && (
               <select
                 value={activeDocumentId || ''}
@@ -210,7 +235,36 @@ export function ProjectDetail() {
           </div>
         </div>
       )}
+
+      {/* Search Modal - scoped to this project */}
+      <SearchModal
+        isOpen={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        projectId={projectId}
+      />
     </div>
+  );
+}
+
+/**
+ * Search Icon
+ */
+function SearchIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={className}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+      />
+    </svg>
   );
 }
 

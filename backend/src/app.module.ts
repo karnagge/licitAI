@@ -11,6 +11,7 @@ import { ChatsModule } from './modules/chats/chats.module';
 import { MessagesModule } from './modules/messages/messages.module';
 import { AttachmentsModule } from './modules/attachments/attachments.module';
 import { UsersModule } from './modules/users/users.module';
+import { SearchModule } from './modules/search/search.module';
 import { AiAgentsModule } from './modules/ai-agents/ai-agents.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
@@ -32,6 +33,7 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
     MessagesModule,
     AttachmentsModule,
     UsersModule,
+    SearchModule,
     AiAgentsModule,
   ],
   controllers: [],
