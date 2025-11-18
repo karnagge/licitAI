@@ -1,6 +1,6 @@
 import { Card } from '../ui/Card';
-import type { Template } from '../../../../shared/types/entities';
-import { TemplateType } from '../../../../shared/types/enums';
+import type { Template } from '@shared/types/entities';
+import { TemplateType } from '@shared/types/enums';
 
 interface TemplateCardProps {
   template: Template;

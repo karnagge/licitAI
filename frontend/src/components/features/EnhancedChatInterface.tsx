@@ -4,7 +4,7 @@ import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { AgentProgressTracker, AgentPhase } from './AgentProgressTracker';
 import { AgentPhaseIndicator } from './AgentPhaseIndicator';
-import type { Message } from '../../../../shared/types/entities';
+import type { Message } from '@shared/types/entities';
 
 interface EnhancedChatInterfaceProps {
   chatId: string;

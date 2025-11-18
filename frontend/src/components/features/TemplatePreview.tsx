@@ -1,6 +1,6 @@
 import { Button } from '../ui/Button';
-import type { Template } from '../../../../shared/types/entities';
-import { TemplateType } from '../../../../shared/types/enums';
+import type { Template } from '@shared/types/entities';
+import { TemplateType } from '@shared/types/enums';
 
 interface TemplatePreviewProps {
   template: Template;

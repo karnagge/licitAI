@@ -1,5 +1,5 @@
 import api from './api';
-import type { Attachment } from '../../../shared/types/entities';
+import type { Attachment } from '@shared/types/entities';
 
 /**
  * Attachment API Service

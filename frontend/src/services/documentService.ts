@@ -1,5 +1,5 @@
 import api from './api';
-import type { Document, DocumentVersion } from '../../../shared/types/entities';
+import type { Document, DocumentVersion } from '@shared/types/entities';
 
 /**
  * Document API Service

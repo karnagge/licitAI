@@ -5,8 +5,8 @@ import { TemplateCard } from '../../components/features/TemplateCard';
 import { TemplatePreview } from '../../components/features/TemplatePreview';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import type { Template } from '../../../../shared/types/entities';
-import { TemplateType } from '../../../../shared/types/enums';
+import type { Template } from '@shared/types/entities';
+import { TemplateType } from '@shared/types/enums';
 
 /**
  * TemplateSelection Page

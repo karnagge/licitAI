@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '../ui/Button';
 import { useExportDocument } from '../../hooks/useDocuments';
-import type { Document } from '../../../../shared/types/entities';
+import type { Document } from '@shared/types/entities';
 
 interface DocumentToolbarProps {
   document: Document;

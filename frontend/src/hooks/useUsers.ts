@@ -7,7 +7,7 @@ import {
   removeUser,
   type InviteUserDto,
 } from '../services/userService';
-import { UserRole } from '../../../shared/types/enums';
+import { UserRole } from '@shared/types/enums';
 
 /**
  * Query keys for users

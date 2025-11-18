@@ -7,7 +7,7 @@ import {
   type CreateTemplateDto,
   type CreateFromDocumentDto,
 } from '../services/templateService';
-import type { TemplateType } from '../../../shared/types/enums';
+import type { TemplateType } from '@shared/types/enums';
 
 /**
  * Query keys for templates

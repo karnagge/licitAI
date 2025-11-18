@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { SearchService } from './search.service';
+import { SearchService, SearchResult } from './search.service';
 import { SearchQueryDto } from './dto/search-query.dto';
 import { CurrentTenant } from '../../common/decorators/current-tenant.decorator';
 
@@ -20,7 +20,7 @@ export class SearchController {
   search(
     @CurrentTenant() tenantId: string,
     @Query() searchDto: SearchQueryDto,
-  ) {
+  ): Promise<SearchResult[]> {
     return this.searchService.search(tenantId, searchDto);
   }
 

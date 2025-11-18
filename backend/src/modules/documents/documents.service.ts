@@ -265,7 +265,7 @@ export class DocumentsService {
       // Update document with embedding
       await this.prisma.document.update({
         where: { id: documentId },
-        data: { embedding },
+        data: { embedding } as any,
       });
 
       this.logger.log(`Embedding generated successfully for document ${documentId}`);

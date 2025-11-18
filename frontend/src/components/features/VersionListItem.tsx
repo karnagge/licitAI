@@ -1,5 +1,5 @@
-import { DocumentVersion } from '../../../../shared/types/entities';
-import { ChangeType } from '../../../../shared/types/enums';
+import { DocumentVersion } from '@shared/types/entities';
+import { ChangeType } from '@shared/types/enums';
 
 interface VersionListItemProps {
   version: DocumentVersion;

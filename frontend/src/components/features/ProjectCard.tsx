@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card } from '../ui/Card';
-import type { Project } from '../../../../shared/types/entities';
-import { ProjectStatus } from '../../../../shared/types/enums';
+import type { Project } from '@shared/types/entities';
+import { ProjectStatus } from '@shared/types/enums';
 
 interface ProjectCardProps {
   project: Project;

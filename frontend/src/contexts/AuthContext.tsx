@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import api from '../services/api';
-import type { AuthResponseDto, LoginDto } from '../../../shared/types/dtos';
+import type { AuthResponseDto, LoginDto } from '@shared/types/dtos';
 
 interface User {
   id: string;

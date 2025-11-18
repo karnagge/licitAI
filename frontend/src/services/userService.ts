@@ -1,5 +1,5 @@
 import api from './api';
-import { UserRole } from '../../../shared/types/enums';
+import { UserRole } from '@shared/types/enums';
 
 /**
  * User API Service

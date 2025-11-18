@@ -149,14 +149,19 @@ export class AttachmentsService {
       }
 
       // Update attachment with extracted text and embedding
+      const updateData: any = {
+        extractedText,
+        status: AttachmentStatus.READY,
+        processedAt: new Date(),
+      };
+      
+      if (embedding) {
+        updateData.embedding = embedding;
+      }
+
       await this.prisma.attachment.update({
         where: { id: attachmentId },
-        data: {
-          extractedText,
-          embedding,
-          status: AttachmentStatus.READY,
-          processedAt: new Date(),
-        },
+        data: updateData,
       });
 
       this.logger.log(`Successfully processed attachment ${attachmentId}`);

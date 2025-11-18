@@ -1,8 +1,5 @@
-import { useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
-
 /**
- * Hook to access authentication context
+ * Re-export useAuth hook from AuthContext
  * Must be used within AuthProvider
  *
  * @returns Authentication context with user, login, logout, register functions
@@ -21,12 +18,4 @@ import { AuthContext } from '../contexts/AuthContext';
  * }
  * ```
  */
-export function useAuth() {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
-  }
-
-  return context;
-}
+export { useAuth } from '../contexts/AuthContext';

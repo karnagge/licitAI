@@ -22,8 +22,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./backend/Dockerfile
     container_name: licitai-backend
     environment:
       NODE_ENV: development
@@ -36,6 +36,7 @@ services:
       - '3001:3001'
     volumes:
       - ./backend:/app
+      - ./shared:/shared
       - /app/node_modules
       - backend_uploads:/app/uploads
     depends_on:
@@ -47,8 +48,8 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./frontend/Dockerfile
     container_name: licitai-frontend
     environment:
       VITE_API_URL: http://localhost:3001/api/v1
@@ -56,6 +57,7 @@ services:
       - '5173:5173'
     volumes:
       - ./frontend:/app
+      - ./shared:/shared
       - /app/node_modules
     command: npm run dev
     networks:

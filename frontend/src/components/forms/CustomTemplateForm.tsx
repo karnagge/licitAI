@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TemplateType } from '../../../../shared/types/enums';
+import { TemplateType } from '@shared/types/enums';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 

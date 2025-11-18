@@ -1,5 +1,5 @@
 import api from './api';
-import type { Chat, Message } from '../../../shared/types/entities';
+import type { Chat, Message } from '@shared/types/entities';
 
 /**
  * Chat API Service

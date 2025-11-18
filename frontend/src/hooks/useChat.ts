@@ -10,7 +10,7 @@ import {
   type CreateChatDto,
   type CreateMessageDto,
 } from '../services/chatService';
-import type { Message } from '../../../shared/types/entities';
+import type { Message } from '@shared/types/entities';
 
 /**
  * Query keys for chats

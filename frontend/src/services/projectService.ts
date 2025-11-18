@@ -1,5 +1,5 @@
 import api from './api';
-import type { Project } from '../../../shared/types/entities';
+import type { Project } from '@shared/types/entities';
 
 /**
  * Project API Service

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useUsers, useInviteUser, useUpdateUserRole, useRemoveUser } from '../../hooks/useUsers';
-import { UserRole } from '../../../../shared/types/enums';
+import { UserRole } from '@shared/types/enums';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { InviteUserForm } from '../../components/forms/InviteUserForm';

@@ -1,4 +1,4 @@
-import type { Message } from '../../../../shared/types/entities';
+import type { Message } from '@shared/types/entities';
 
 interface ChatMessageProps {
   message: Message;

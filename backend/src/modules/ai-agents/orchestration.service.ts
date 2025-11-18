@@ -184,7 +184,7 @@ export class OrchestrationService {
             research,
             validation,
             review,
-          },
+          } as any,
         },
       });
 
@@ -193,7 +193,7 @@ export class OrchestrationService {
         where: { id: documentId },
         data: {
           currentVersion: newVersion,
-          status: review.readinessLevel === 'ready' ? 'COMPLETED' : 'DRAFT',
+          status: review.readinessLevel === 'ready' ? ('COMPLETED' as any) : ('DRAFT' as any),
         },
       });
 
@@ -355,7 +355,7 @@ export class OrchestrationService {
           changeType: 'AI_GENERATED',
           createdBy: document.createdBy,
           wordCount,
-          metadata: { research, validation, review },
+          metadata: { research, validation, review } as any,
         },
       });
 
@@ -363,7 +363,7 @@ export class OrchestrationService {
         where: { id: documentId },
         data: {
           currentVersion: newVersion,
-          status: review.readinessLevel === 'ready' ? 'COMPLETED' : 'DRAFT',
+          status: review.readinessLevel === 'ready' ? ('COMPLETED' as any) : ('DRAFT' as any),
         },
       });
 
@@ -377,9 +377,10 @@ export class OrchestrationService {
       };
     } catch (error) {
       this.logger.error('Streaming generation failed', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       yield {
         type: 'error',
-        data: { message: error.message },
+        data: { message: errorMessage },
       };
       throw error;
     }

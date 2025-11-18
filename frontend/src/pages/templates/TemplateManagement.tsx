@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTemplates, useCreateTemplate } from '../../hooks/useTemplates';
-import { TemplateType } from '../../../../shared/types/enums';
+import { TemplateType } from '@shared/types/enums';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { CustomTemplateForm } from '../../components/forms/CustomTemplateForm';

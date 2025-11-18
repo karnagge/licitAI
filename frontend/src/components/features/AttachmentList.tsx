@@ -1,5 +1,5 @@
-import { Attachment } from '../../../../shared/types/entities';
-import { AttachmentStatus } from '../../../../shared/types/enums';
+import { Attachment } from '@shared/types/entities';
+import { AttachmentStatus } from '@shared/types/enums';
 import { useDeleteAttachment } from '../../hooks/useAttachments';
 import { downloadAttachment } from '../../services/attachmentService';
 

@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
-import { OrganizationType } from '../../../../shared/types/enums';
+import { OrganizationType } from '@shared/types/enums';
 
 interface OrganizationFormData {
   name: string;

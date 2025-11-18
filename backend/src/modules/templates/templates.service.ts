@@ -22,11 +22,14 @@ export class TemplatesService {
   ) {
     return this.prisma.template.create({
       data: {
-        ...createDto,
         tenantId,
         createdBy: userId,
         isSystem: false,
-      },
+        name: createDto.name,
+        description: createDto.description,
+        type: createDto.type,
+        sections: createDto.sections as any,
+      } as any,
     });
   }
 

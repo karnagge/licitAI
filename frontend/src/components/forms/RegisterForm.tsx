@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
-import { OrganizationType } from '../../../../shared/types/enums';
+import { OrganizationType } from '@shared/types/enums';
 
 /**
  * RegisterForm Component

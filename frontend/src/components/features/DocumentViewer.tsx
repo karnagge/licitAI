@@ -1,5 +1,5 @@
-import type { Document, DocumentVersion } from '../../../../shared/types/entities';
-import { DocumentStatus, ContentFormat } from '../../../../shared/types/enums';
+import type { Document, DocumentVersion } from '@shared/types/entities';
+import { DocumentStatus, ContentFormat } from '@shared/types/enums';
 
 interface DocumentViewerProps {
   document: Document & { latestVersion?: DocumentVersion };

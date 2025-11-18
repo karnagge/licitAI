@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UserRole } from '../../../../shared/types/enums';
+import { UserRole } from '@shared/types/enums';
 import { Button } from '../ui/Button';
 
 interface InviteUserFormProps {

@@ -1,6 +1,6 @@
 import api from './api';
-import type { Template } from '../../../shared/types/entities';
-import type { TemplateType } from '../../../shared/types/enums';
+import type { Template } from '@shared/types/entities';
+import type { TemplateType } from '@shared/types/enums';
 
 /**
  * Template API Service

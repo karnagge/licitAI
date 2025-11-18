@@ -29,7 +29,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(
     @Body() _loginDto: LoginDto, // Validated by DTO but used by Guard
-    @Request() req,
+    @Request() req: any,
   ): Promise<AuthResponseDto> {
     // User is already validated by LocalAuthGuard
     return this.authService.login(req.user);

@@ -1,6 +1,6 @@
 import api from './api';
-import type { Organization } from '../../../shared/types/entities';
-import type { OrganizationType } from '../../../shared/types/enums';
+import type { Organization } from '@shared/types/entities';
+import type { OrganizationType } from '@shared/types/enums';
 
 /**
  * Organization API Service

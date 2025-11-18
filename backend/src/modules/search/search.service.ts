@@ -4,7 +4,7 @@ import { EmbeddingsService } from '../ai-agents/embeddings.service';
 import { SearchQueryDto } from './dto/search-query.dto';
 import { Prisma } from '@prisma/client';
 
-interface SearchResult {
+export interface SearchResult {
   type: 'document' | 'message';
   id: string;
   title?: string;
